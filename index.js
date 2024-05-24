@@ -18,9 +18,17 @@ mongoose.connect(process.env.MONGODB_URI, {
   console.error('Failed to connect to MongoDB', err);
 });
 
+// Add the following lines to import the new routes
+const authRoutes = require('./routes/auth');
+const photoRoutes = require('./routes/photos');
+
 app.get('/', (req, res) => {
   res.send('Photo Sharing App Backend');
 });
+
+// Add the following lines to use the new routes
+app.use('/api/auth', authRoutes);
+app.use('/api/photos', photoRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
